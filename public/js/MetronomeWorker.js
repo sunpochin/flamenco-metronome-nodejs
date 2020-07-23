@@ -35,8 +35,18 @@ class MetronomeWorker {
 
         function playMetronome() {
 
-            let nextStart = ms.audioContext.currentTime;
+            let counter = 0;
 
+            var fruits = [1.5, 0.5, 1,
+                        1.5, 0.5, 1,
+                        1.0, 0.5, 0.5,
+                        1.0, 0.5, 0.5,
+                        1.0, 1.0
+                    ];
+            let maxcnt = fruits.length;
+
+            let nextStart = ms.audioContext.currentTime;
+            
             function schedule() {
                 if (!ms.running) return;
 
@@ -46,7 +56,9 @@ class MetronomeWorker {
                 if (bufIndex >= ms.soundFiles.buffers.length) {
                     alert('Sound files are not yet loaded')
                 } else if (ms.tempoBpm) {
-                    nextStart += 60 / ms.tempoBpm;
+
+                    nextStart += (60 / ms.tempoBpm) * fruits[counter];
+
                     ms.source = ms.audioContext.createBufferSource();
                     ms.source.buffer = ms.soundFiles.buffers[bufIndex];
                     ms.source.connect(ms.audioContext.destination);
@@ -56,7 +68,9 @@ class MetronomeWorker {
                     let diff = new Date().getTime() - endtime;
                     endtime = new Date().getTime();
                     console.log('endtime: ', endtime, ', diff: ', diff);
-            
+
+                    counter++;
+                    counter = counter % maxcnt;
         
                 }
             }
