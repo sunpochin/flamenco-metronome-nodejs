@@ -14,33 +14,43 @@
     <h1>Flamenco Metronome</h1>
     <div class="row">
         <div class="col-sm">
+            <!-- <div class="form-group">
+                <label for="Palo">Palo</label>
+                <select id="Palo" class="form-control"
+                        onChange="metronomeApp.setPalo(this.selectedIndex + 1)">
+                </select>
+            </div> -->
+
             <div class="form-group">
                 <label for="Speed">Speed</label>
-                <input id="Speed" class='form-control' type="number" value='120'
-                min='20' max='400' onChange="metronomeApp.setTempo(this.value);">
+                <input id="Speed" class='form-control' type="number" value='140'
+                min='10' max='600'
+                    onchange="metronomeApp.setTempo(this.value);"
+                    >
             </div>
             <div class="form-group">
                 <label for="metroSound">Sound</label>
                 <select id="metroSound" class="form-control"
-                        onChange="metronomeApp.setSound(this.selectedIndex + 1)">
+                    onChange="metronomeApp.setSound(this.selectedIndex + 1)"
+                    >
                 </select>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="visType">Visualization</label>
                 <select id="visType" class="form-control"
                         onChange="metronomeApp.setVisualization(this.selectedIndex)">
                 </select>
-            </div>
+            </div> -->
             <input id="metronome" class="form-control btn btn-secondary"
                    type="button" value="Begin" onclick="metronomeApp.toggle()"/>
         </div>
     </div>
     <div class="row" height="800px">
-        sssss
-        <div class="col-sm" height="800px">
+        拱爸圖
+        <!-- <div class="col-sm" height="800px">
             <div id='visualization' style="height: 800px;"></div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 

@@ -49,6 +49,14 @@ class MetronomeApp {
     }
 
     /**
+     * Setting palo pattern.
+     * @param bpm tempo in beats per minute
+     */
+    setPalo(type) {
+        this.metroSound.setPalo(type);
+    }
+
+    /**
      * Sets the metronome sound.
      * @param number the one-based sound index
      */

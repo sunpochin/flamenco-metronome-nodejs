@@ -7,15 +7,15 @@ const VisSettings = {
 };
 
 function setup() {
-    const vis = $("#visualization");
-    createCanvas(vis.width(), vis.height()).parent("visualization");
-    colorMode(HSB);
+    // const vis = $("#visualization");
+    // createCanvas(vis.width(), vis.height()).parent("visualization");
+    // colorMode(HSB);
 }
 
 counter = 0;
 function draw() {
     function calcOffsetFraction() {
-        const secondsPerMinute = 60;
+        const secondsPerMinute = 60;4
         const periodSeconds = secondsPerMinute / VisSettings.tempoBpm;
         const secondsSinceStart = VisSettings.getTime() - VisSettings.startTime;
         const offsetSeconds = secondsSinceStart % periodSeconds;
@@ -23,7 +23,7 @@ function draw() {
     }
 
     const offsetFraction = calcOffsetFraction();
-    console.log('offsetFraction: ', offsetFraction);
+//    console.log('offsetFraction: ', offsetFraction);
 
     const margin = 40;
     const radius = min(width, height) / 2;
