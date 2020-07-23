@@ -72,6 +72,10 @@ class MetronomeApp {
 }
 
 const metronomeApp = new MetronomeApp('res/audio/',
-    ['Clap_bright.wav', 'High_Woodblock.wav', 'Low_Woodblock.wav', 'High_Bongo.wav',
-        'Low_Bongo.wav', 'Claves.wav', 'Drumsticks.wav'],
+    ['Clap_bright.wav', ],
     VisSettings);
+
+// const metronomeApp = new MetronomeApp('res/audio/',
+//     ['Clap_bright.wav', 'High_Woodblock.wav', 'Low_Woodblock.wav', 'High_Bongo.wav',
+//         'Low_Bongo.wav', 'Claves.wav', 'Drumsticks.wav'],
+//     VisSettings);

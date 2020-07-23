@@ -1,5 +1,3 @@
-/** This p5.js sketch makes a visualization of the metronome beats */
-
 const VisSettings = {
     tempoBpm: 0,
     startTime: 0,
