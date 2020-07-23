@@ -2,8 +2,10 @@ let endtime = new Date().getTime();
 let beatAlegriasTraditional = [1.5, 0.5, 1, 1.5, 0.5, 1,
     1.0, 0.5, 0.5, 1.0, 0.5, 0.5, 1.0, 1.0 ];
 
-let beatTangos = [1.0, 0.5, 0.5, 1.0, 1.0];
-
+let beatTangos = [0, 1.0, 0.5, 0.5, 1.0, 1.0];
+//let compasTempoPair = [(1, 140), (4, 180), (7, 140), (8, 70) ];
+var compasTempoMap = new Map([
+    [1, 140], [2, 180], [7, 140], [8, 70]] );
 
 class MetronomeWorker {
     constructor(soundsPath, sounds, listener) {
@@ -16,6 +18,16 @@ class MetronomeWorker {
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const urls = sounds.map(name => this.soundsPath + name);
         this.soundFiles = new SoundFiles(this.audioContext, urls);
+
+        this.compasNo = 0;
+
+        //= [[1, 140], [4, 180], [7, 140], [8, 70] ];
+        console.log('compasTempoMap.get(1) :', compasTempoMap.get(1) );
+        console.log('compasTempoMap.get(2) :', compasTempoMap.get(2) );
+        console.log('compasTempoMap.get(4) :', compasTempoMap.get(4) );
+        console.log('compasTempoMap.get(7) :', compasTempoMap.get(7) );
+        console.log('compasTempoMap.get(1) :', compasTempoMap.get(8) );
+
     }
 
     /**
@@ -39,39 +51,68 @@ class MetronomeWorker {
         this.paloType = paloType;
     }
 
-
     playMetronome() {
-        let ms = this;
+        const ms = this;
         let counter = 0;
         // An array to represent the beating pattern of different palos.
         var beatPattern = beatAlegriasTraditional;
 
         let nextStart = ms.audioContext.currentTime;
-        
         function schedule() {
-            if (!ms.running) return;
+//            const speed = compasTempoMap[ms.compasNo];
+            const speed = compasTempoMap.get( ms.compasNo );
+//            const speed = compasTempoMap.get( 7 );
+            console.log('typeof', typeof(ms.compasNo), ' ,compas no: ', ms.compasNo, ', speed: ', speed);
+
+            console.log('speed: ', speed)
+            if (undefined !== speed ) {
+                // change speed only when it's a valid Map.get() result.
+                ms.tempoBpm = speed;
+            }
+            console.log('ms.compasNo', ms.compasNo, ' ,speed: ', speed, ' ,ms.tempoBpm: ', ms.tempoBpm);
+
+            if (!ms.running) {
+                return;
+            }
 
             ms.listener.setStartTime(nextStart);
             ms.listener.setTempo(ms.tempoBpm);
-            const bufIndex = ms.soundNum - 1;
+            let bufIndex = 1; // non-heavy beat sound.
             if (bufIndex >= ms.soundFiles.buffers.length) {
                 alert('Sound files are not yet loaded')
             } else if (ms.tempoBpm) {
+                counter++;
+                // change compas
+                if (beatPattern.length == counter) {
+                    counter = counter % beatPattern.length;
+                    ms.compasNo += 1;
+                }
 
-                nextStart += (60 / ms.tempoBpm) * beatPattern[counter];
+                if (counter == 2 || counter == 5 || counter == 8 
+                    || 11 == counter || 14 == counter
+                    // || 0 == counter
+                //     ) {
+                    // if (counter == 1 || counter == 4 || counter == 7 
+                    //     || 10 == counter || 13 == counter
+                // if (counter == 0 || counter == 3 || counter == 6 
+                //     // || 10 == counter || 13 == counter
+                    ) {
+                    bufIndex = 0;
+                }
+                console.log('counter: ', counter, ' ,bufIndex: ', bufIndex);
 
                 ms.source = ms.audioContext.createBufferSource();
                 ms.source.buffer = ms.soundFiles.buffers[bufIndex];
                 ms.source.connect(ms.audioContext.destination);
                 ms.source.onended = schedule;
+
+                nextStart += (60 / ms.tempoBpm) * beatPattern[counter];
                 ms.source.start(nextStart);
 
+                // debugging.
                 let diff = new Date().getTime() - endtime;
                 endtime = new Date().getTime();
                 console.log('endtime: ', endtime, ', diff: ', diff);
-
-                counter++;
-                counter = counter % beatPattern.length;
             }
         }
         schedule();

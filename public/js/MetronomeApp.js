@@ -80,7 +80,7 @@ class MetronomeApp {
 }
 
 const metronomeApp = new MetronomeApp('res/audio/',
-    ['Clap_bright.wav', ],
+    [ 'Low_Bongo.wav', 'Clap_bright.wav',],
     VisSettings);
 
 // const metronomeApp = new MetronomeApp('res/audio/',
