@@ -13,6 +13,7 @@ class MetronomeApp {
 
         this.visSettings = visSettings;
         this.soundSelectId = soundSelectId || 'metroSound';
+        console.log('this.soundSelectId: ', this.soundSelectId);
         this.visTypeSelectId = visTypeSelectId || 'visType';
         this.startStopId = startStopId || 'metronome';
 
@@ -20,9 +21,16 @@ class MetronomeApp {
             setTempo: (t) => visSettings.tempoBpm = t,
             setStartTime: (t) => visSettings.startTime = t
         };
-        this.metroSound = new MetronomeWorker(soundsPath, sounds, metroSoundListener);
+        this.metroWorker = new MetronomeWorker(soundsPath, sounds, metroSoundListener);
 
-        visSettings.getTime = () => this.metroSound.audioContext.currentTime;
+        visSettings.getTime = () => this.metroWorker.audioContext.currentTime;
+
+
+        // Setting up selection of HTML.
+        // CompasPattern: AsPalo, OnBeat.
+        const CompasPattern = $('#' + 'CompasPattern');
+        CompasPattern.append(`<option>AsPalo</option>`);
+        CompasPattern.append(`<option>OnBeat</option>`);
 
         const soundSelect = $('#' + this.soundSelectId);
         for (const name of sounds) {
@@ -45,7 +53,7 @@ class MetronomeApp {
      * @param bpm tempo in beats per minute
      */
     setTempo(bpm) {
-        this.metroSound.setTempo(bpm);
+        this.metroWorker.setTempo(bpm);
     }
 
     /**
@@ -53,7 +61,7 @@ class MetronomeApp {
      * @param bpm tempo in beats per minute
      */
     setPalo(type) {
-        this.metroSound.setPalo(type);
+        this.metroWorker.setPalo(type);
     }
 
     /**
@@ -61,7 +69,7 @@ class MetronomeApp {
      * @param number the one-based sound index
      */
     setSound(number) {
-        this.metroSound.setSound(number);
+        this.metroWorker.setSound(number);
     }
 
     /**
@@ -74,8 +82,8 @@ class MetronomeApp {
 
     /** Starts the metronome if it is stopped, and vice versa. */
     toggle() {
-        this.metroSound.toggle();
-        $('#' + this.startStopId).val(this.metroSound.running ? 'Stop' : 'Start')
+        this.metroWorker.toggle();
+        $('#' + this.startStopId).val(this.metroWorker.running ? 'Stop' : 'Start')
     }
 }
 

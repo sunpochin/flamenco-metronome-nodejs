@@ -1,3 +1,4 @@
+
 const VisSettings = {
     tempoBpm: 0,
     startTime: 0,
@@ -65,5 +66,6 @@ function draw() {
         () => drawLargeCircle()
     ];
 
-    visualizations[(VisSettings.visualizationType)]();
+    // visualizations[(VisSettings.visualizationType)]();
 }
+

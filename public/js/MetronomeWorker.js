@@ -1,11 +1,22 @@
 let endtime = new Date().getTime();
-let beatAlegriasTraditional = [1.5, 0.5, 1, 1.5, 0.5, 1,
-    1.0, 0.5, 0.5, 1.0, 0.5, 0.5, 1.0, 1.0 ];
+// let beatAlegriasTraditional = [1.5, 0.5, 1, 1.5, 0.5, 1,
+//     1.0, 0.5, 0.5, 1.0, 0.5, 0.5, 1.0, 1.0 ];
 
+let beatAlegriasTraditional = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+        1.0, 1.0, 1.0, 1.0, 1.0, 1.0];
+    
 let beatTangos = [0, 1.0, 0.5, 0.5, 1.0, 1.0];
 //let compasTempoPair = [(1, 140), (4, 180), (7, 140), (8, 70) ];
 var compasTempoMap = new Map([
-    [1, 140], [2, 180], [7, 140], [8, 70]] );
+//    [1, 140], [2, 180], [7, 140], [8, 70]] );
+//    [1, 5140], [2, 5180], [7, 5140], [8, 570]] );
+    [1, 70], [5, 80], [7, 90], [11, 100],
+    [13, 120], [15, 120], [17, 120],
+    [29, 140], [30, 160], [31, 180], [32, 200],
+    [33, 200],
+
+
+] );
 
 class MetronomeWorker {
     constructor(soundsPath, sounds, listener) {
@@ -20,13 +31,6 @@ class MetronomeWorker {
         this.soundFiles = new SoundFiles(this.audioContext, urls);
 
         this.compasNo = 0;
-
-        //= [[1, 140], [4, 180], [7, 140], [8, 70] ];
-        console.log('compasTempoMap.get(1) :', compasTempoMap.get(1) );
-        console.log('compasTempoMap.get(2) :', compasTempoMap.get(2) );
-        console.log('compasTempoMap.get(4) :', compasTempoMap.get(4) );
-        console.log('compasTempoMap.get(7) :', compasTempoMap.get(7) );
-        console.log('compasTempoMap.get(1) :', compasTempoMap.get(8) );
 
     }
 
@@ -88,14 +92,13 @@ class MetronomeWorker {
                     ms.compasNo += 1;
                 }
 
-                if (counter == 2 || counter == 5 || counter == 8 
-                    || 11 == counter || 14 == counter
-                    // || 0 == counter
-                //     ) {
-                    // if (counter == 1 || counter == 4 || counter == 7 
-                    //     || 10 == counter || 13 == counter
-                // if (counter == 0 || counter == 3 || counter == 6 
-                //     // || 10 == counter || 13 == counter
+                // if (counter == 2 || counter == 5 || counter == 8 
+                //     || 11 == counter || 14 == counter
+                //     // || 0 == counter
+                // //     ) {
+                //     // if (counter == 1 || counter == 4 || counter == 7 
+                //     //     || 10 == counter || 13 == counter
+                if (counter == 0 
                     ) {
                     bufIndex = 0;
                 }
