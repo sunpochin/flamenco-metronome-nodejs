@@ -7,10 +7,10 @@ After git cloning, type `npm start`
 
 ### Attributes of a Compas:
 
-1. Timbre: ClapBright, ClapDark, Cajon, etc....
-2. CompasPattern: AsPalo, OnBeat.
-3. Speed increasing/decreasing: Constant, GradInc, ImmediateInc, GradDec, ImmediateDec.
+1. CompasPattern: AsPalo, OnBeat.
+2. Speed
+3. Speed Type, increasing/decreasing: Constant, GradInc, ImmediateInc, GradDec, ImmediateDec.
+4. Timbre: ClapBright, ClapDark, Cajon, etc....
 
 ## Ref.
 // https://stackoverflow.com/questions/6084360/using-node-js-as-a-simple-web-server
-

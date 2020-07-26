@@ -8,7 +8,8 @@ class MetronomeApp {
      * @param visTypeSelectId the ID of the HTML select control for the visualization types
      * @param startStopId the ID of the HTML button to start and stop the metronome
      */
-    constructor(soundsPath, sounds, visSettings, soundSelectId, visTypeSelectId, startStopId) {
+    constructor(soundsPath, sounds, visSettings, soundSelectId, 
+        visTypeSelectId, startStopId) {
         console.log('constructor: ' );
 
         this.visSettings = visSettings;
@@ -62,6 +63,16 @@ class MetronomeApp {
      */
     setPalo(type) {
         this.metroWorker.setPalo(type);
+    }
+
+    addCompas() {
+        // Append a text node to the cell
+        var newText  = document.createTextNode('New row');
+        // Insert a row in the table at the last row
+        var newRow   = document.add ();
+//        newCell.appendChild(newText);
+        console.log('addCompas, document: ', document);
+//        this.metroWorker.addCompas();
     }
 
     /**

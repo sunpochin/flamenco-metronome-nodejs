@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Flamenco Metronome Editor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
         crossorigin="anonymous">
 </head>
@@ -12,10 +13,80 @@
 <div class="container">
     <h1>Editor Flamenco Metronome</h1>
 
+
+    <table class="table table-dark">
+        <!-- <colgroup>
+            <col style="background-color: #0f0">
+            <col span="2">
+        </colgroup> -->
+        <rowgroup>
+            <row style="background-color: #f00">
+            <row span="1">
+        </rowgroup>
+        
+        <thead>
+            <tr>
+        
+                <th scope="col">#</th>
+                <th scope="col">CompasPattern</th>
+                <th scope="col">Speed</th>
+                <th scope="col">Speed Type</th>
+                <th scope="col">Timbre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td><div contenteditable>Alegrias</div></td>
+                <td><div contenteditable>140</div></td>
+                <td contenteditable='true'>Constant</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Alegrias</td>
+                <td>140</td>
+                <td>Constant</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Alegrias</td>
+                <td>140</td>
+                <td>Constant</td>
+            </tr>
+        </tbody>
+    </table>
+
     <div class="container">
-        <div class="row">
+        <div>
+
+            <p>Table with colgroup and col</p>
+            <table class="table">
+              <colgroup>
+                <col style="background-color: #0f0">
+                <col span="2">
+              </colgroup>
+              <tr>
+                <th>Lime</th>
+                <th>Lemon</th>
+                <th>Orange</th>
+              </tr>
+              <tr>
+                <td>Green</td>
+                <td>Yellow</td>
+                <td>Orange</td>
+              </tr>
+            </table>
+    
+        </div>
+
+
+        <!-- <div class="row">
+
+            <button type="button" id= "btn-add" class="btn btn-primary"
+                onclick="metronomeApp.addCompas()">Add</button>
+
             <div class="col">
-                <label for="音色">Speed</label>
+                <label for="Speed">Speed</label>
                 <input id="Speed" class='form-control' type="number" value='140'
                 min='10' max='600'
                     onchange="metronomeApp.setTempo(this.value);">
@@ -27,7 +98,7 @@
                 </select>
             </div>
             <div class="col">
-                <label for="CompasPattern">Sound</label>
+                <label for="CompasPattern">CompasPattern</label>
                 <select id="CompasPattern" class="form-control"
                 onChange="metronomeApp.setSound(this.selectedIndex + 1)" >
                 </select>
@@ -44,7 +115,7 @@
             <div class="col">
                 3 of 3
             </div>
-        </div>
+        </div> -->
     </div>
 
 </div>
