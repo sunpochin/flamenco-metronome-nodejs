@@ -55,17 +55,18 @@ class MetronomeApp {
         });
 
         this.datas = [];
-        // this.loadJson().then( return this.tableCreate() );
         this.loadJson();
-//        this.tableCreate() ;
     }
 
     async loadJson() {
         const getJson = async () => {
             return fetch("res/compassheet.json")
-//            .then(response => response.json())
+            .then(response => response.json())
             .then(json => {
-                console.log('this.datas: ', this.datas)
+                this.datas = json;
+                // console.log('json: ', json)
+                // console.log('this.datas: ', this.datas)
+                this.tableCreate();
             });
         }
         await getJson();
@@ -99,8 +100,8 @@ class MetronomeApp {
         console.log('this.datas: ', this.datas)
         let table = document.querySelector("table");
         let data = Object.keys(this.datas[0]);
-        generateTableHead(table, data);
-        generateTable(table, this.datas);
+        this.generateTableHead(table, data);
+        this.generateTable(table, this.datas);
 
     }
 

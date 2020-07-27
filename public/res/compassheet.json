@@ -1,12 +1,19 @@
 [{
-        "no": "5", 
-        "CompasPattern": "Amiata", 
-        "height": 1738, 
-        "place": "Siena"
+        "no": "1", 
+        "CompasPattern": "Alegrias", 
+        "Speed": 150, 
+        "Speed Type": "Constant"
     },
     {
-        "no": "1", 
-        "CompasPattern": "Monte Falco", 
-        "height": 1658, 
-        "place": "Parco Foreste Casentinesi"
-    }]
+        "no": "2", 
+        "CompasPattern": "Alegrias", 
+        "Speed": 150, 
+        "Speed Type": "Constant"
+    },
+    {
+        "no": "3", 
+        "CompasPattern": "Alegrias", 
+        "Speed": 150, 
+        "Speed Type": "Constant"
+    }
+]
