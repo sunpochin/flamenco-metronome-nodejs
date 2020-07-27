@@ -1,3 +1,9 @@
+
+let mountains = [
+    { no: "1", CompasPattern: "Monte Falco", height: 1658, place: "Parco Foreste Casentinesi" },
+    { no: "5", CompasPattern: "Amiata", height: 1738, place: "Siena" }
+  ];
+
 class MetronomeApp {
     /**
      * Creates a MetronomeApp.
@@ -47,6 +53,74 @@ class MetronomeApp {
             const sel = index === 0 ? ' selected' : '';
             visTypeSelect.append(`<option${sel}>${visTypeName}</option>`);
         });
+
+        this.loadJson();
+        this.aaa();
+    }
+
+    loadJson() {
+        console.log('loadJson: ' );
+
+        fetch("res/compassheet.json")
+            .then(response => response.json())
+            .then(json => console.log(json));
+        // $.getJSON();
+        try {
+            $.getJSON("res/compassheet.json", function(json) {
+                console.log('json: ', json); // this will show the info it in firebug console
+            });
+        } catch (e) {
+            console.log('error: ', e);
+        }
+
+        // fs.readFile('js/script.json', function (err, data) {
+        // })
+
+        // console.log('loadJson: ' );
+        // const file = '/res/compassheet.json';
+        // jsonfile.readFile(file, function (err, obj) {
+        //     if (err) {
+        //         console.error(err);
+        //     }
+        //     console.dir(obj);
+        // })
+        // console.log('obj: ', obj);
+
+    }
+
+    // https://stackoverflow.com/questions/14643617/create-table-using-javascript
+    // https://www.valentinog.com/blog/html-table/
+    aaa() {
+
+        function generateTableHead(table, data) {
+            let thead = table.createTHead();
+            let row = thead.insertRow();
+            for (let key of data) {
+                let th = document.createElement("th");
+                let text = document.createTextNode(key);
+                th.appendChild(text);
+                row.appendChild(th);
+            }
+        }
+        
+        function generateTable(table, data) {
+            for (let element of data) {
+                let row = table.insertRow();
+                for (let key in element) {
+                    let cell = row.insertCell();
+                    let text = document.createTextNode(element[key]);
+                    cell.appendChild(text);
+                }
+            }
+        }
+        function tableCreate(){
+            let table = document.querySelector("table");
+            let data = Object.keys(mountains[0]);
+            generateTableHead(table, data);
+            generateTable(table, mountains);
+
+        }
+        tableCreate();
     }
 
     /**
@@ -69,7 +143,7 @@ class MetronomeApp {
         // Append a text node to the cell
         var newText  = document.createTextNode('New row');
         // Insert a row in the table at the last row
-        var newRow   = document.add ();
+        var newRow   = document.add();
 //        newCell.appendChild(newText);
         console.log('addCompas, document: ', document);
 //        this.metroWorker.addCompas();
