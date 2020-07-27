@@ -1,13 +1,12 @@
-[
-    {
+[{
         "no": "5", 
         "CompasPattern": "Amiata", 
-        "height": 1738, "place": "Siena"
+        "height": 1738, 
+        "place": "Siena"
     },
     {
         "no": "1", 
         "CompasPattern": "Monte Falco", 
         "height": 1658, 
         "place": "Parco Foreste Casentinesi"
-    }
-]
+    }]
