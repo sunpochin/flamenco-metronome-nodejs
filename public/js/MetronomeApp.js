@@ -67,6 +67,7 @@ class MetronomeApp {
                 // console.log('json: ', json)
                 // console.log('this.datas: ', this.datas)
                 this.tableCreate();
+                this.rowsCreate(this.datas);
             });
         }
         await getJson();
@@ -102,8 +103,78 @@ class MetronomeApp {
         let data = Object.keys(this.datas[0]);
         this.generateTableHead(table, data);
         this.generateTable(table, this.datas);
-
     }
+
+    //https://stackoverflow.com/questions/17001961/how-to-add-drop-down-list-select-programmatically
+    //https://stackoverflow.com/questions/14643617/create-table-using-javascript
+    rowsCreate(data) {
+        var myParent = document.body;
+        var arrayPalo = ["Alegrias","Tangos","Soleares","Bulerias"];
+        var arraySpeedType = ["Constant", "Inc. by Beat", "Inc. by Compas", "Dec. by Beat", "Dec. by Compas"];
+
+        console.log('document: ', document);
+        for (let lala of data) {
+//            element.classList.add("otherclass");
+            var tr = document.createElement('tr');
+
+            let keys = Object.keys(this.datas[0]);
+            // how many colomns.
+//            for (let key of keys) 
+            {
+                // console.log('key: ', key);
+                var td;
+                var selectList1, selectList2, selectList3, selectList4 ;
+                var option;
+
+                td = document.createElement('td');
+                selectList1 = document.createElement("select");
+                selectList1.id = "selectPalo";
+                for (var i = 0; i < arrayPalo.length; i++) {
+                    option = document.createElement("option");
+                    option.value = arrayPalo[i];
+                    option.text = arrayPalo[i];
+                    selectList1.appendChild(option);
+                }
+                td.appendChild(selectList1);
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                selectList2 = document.createElement("select");
+                selectList2.id = "selectSpeed";
+                option = document.createElement("option");
+                option.value = arrayPalo[i];
+                option.text = arrayPalo[i];
+                selectList2.appendChild(option);
+                td.appendChild(selectList2);
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                selectList3 = document.createElement("select");
+                selectList3.id = "mySelect";
+                option = document.createElement("option");
+                option.value = arrayPalo[i];
+                option.text = arrayPalo[i];
+                selectList3.appendChild(option);
+                td.appendChild(selectList3);
+                tr.appendChild(td);
+
+                td = document.createElement('td');
+                selectList4 = document.createElement("select");
+                selectList4.id = "selectIncDec";
+                for (var i = 0; i < arraySpeedType.length; i++) {
+                    option = document.createElement("option");
+                    option.value = arraySpeedType[i];
+                    option.text = arraySpeedType[i];
+                    selectList4.appendChild(option);
+                }
+                td.appendChild(selectList4);
+                tr.appendChild(td);
+            }
+            myParent.appendChild(tr);
+
+        }
+    }
+
 
     /**
      * Sets the tempo.
