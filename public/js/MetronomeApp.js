@@ -19,8 +19,8 @@ class MetronomeApp {
         console.log('constructor: ' );
 
         this.visSettings = visSettings;
-        this.soundSelectId = soundSelectId || 'metroSound';
-        console.log('this.soundSelectId: ', this.soundSelectId);
+        this.soundSelectId = soundSelectId || 'soundSelect';
+//        console.log('this.soundSelectId: ', this.soundSelectId);
         this.visTypeSelectId = visTypeSelectId || 'visType';
         this.startStopId = startStopId || 'metronome';
 
@@ -33,19 +33,9 @@ class MetronomeApp {
         visSettings.getTime = () => this.metroWorker.audioContext.currentTime;
 
 
-        // Setting up selection of HTML.
-        // CompasPattern: AsPalo, OnBeat.
-        const CompasPattern = $('#' + 'CompasPattern');
-        CompasPattern.append(`<option>AsPalo</option>`);
-        CompasPattern.append(`<option>OnBeat</option>`);
 
-        const soundSelect = $('#' + this.soundSelectId);
-        for (const name of sounds) {
-            const fileExtension = /\..*/;
-            const optionText = name.replace('_', ' ').replace(fileExtension, '');
-            console.log('optionText: ', optionText);
-            soundSelect.append(`<option>${optionText}</option>`);
-        }
+        this.datas = [];
+        this.loadJson();
 
         const visTypeSelect = $('#' + this.visTypeSelectId);
         visTypeSelect.append('<option>None</option>');
@@ -53,9 +43,27 @@ class MetronomeApp {
             const sel = index === 0 ? ' selected' : '';
             visTypeSelect.append(`<option${sel}>${visTypeName}</option>`);
         });
+    }
 
-        this.datas = [];
-        this.loadJson();
+    SetupSelection() {
+        // Setting up selection of HTML.
+        // CompasPattern: AsPalo, OnBeat.
+        const CompasPattern = $('#' + 'CompasPattern');
+        CompasPattern.append(`<option>AsPalo</option>`);
+        CompasPattern.append(`<option>OnBeat</option>`);
+
+        console.log('cnt: ', this.datas.length)
+        for (let element of this.datas) {
+            const soundSelect = $('#' + this.soundSelectId + element["no"]);
+            console.log('soundSelect: ', soundSelect);
+            // for (const name of sounds) {
+            //     const fileExtension = /\..*/;
+            //     const optionText = name.replace('_', ' ').replace(fileExtension, '');
+            //     console.log('optionText: ', optionText);
+            //     soundSelect.append(`<option>${optionText}</option>`);
+            // }
+            // soundSelect.append(`<option>${optionText}</option>`);
+        }
     }
 
     async loadJson() {
@@ -67,10 +75,13 @@ class MetronomeApp {
                 // console.log('json: ', json)
                 // console.log('this.datas: ', this.datas)
                 this.tableCreate();
-                this.rowsCreate(this.datas);
+                this.rowsCreate2(this.datas);
+//                this.rowsCreate(this.datas);
             });
         }
         await getJson();
+
+        this.SetupSelection();
     }
 
     // https://stackoverflow.com/questions/14643617/create-table-using-javascript
@@ -103,6 +114,72 @@ class MetronomeApp {
         let data = Object.keys(this.datas[0]);
         this.generateTableHead(table, data);
         this.generateTable(table, this.datas);
+    }
+
+    rowsCreate2(data) {
+        var myParent = document.body;
+        var arrayPalo = ["Alegrias","Tangos","Soleares","Bulerias"];
+        var arraySpeedType = ["Constant", "Inc. by Beat", "Inc. by Compas", "Dec. by Beat", "Dec. by Compas"];
+        for (let element of data) {
+            console.log('element: ', element);
+            var iRow, iCol;
+            var colID = "";
+            var iSelect = "", option = "";
+            iRow = document.createElement('div');
+            iRow.className = "row";
+
+            iSelect = document.createElement('select');
+            colID = "Palo_" + element["no"];
+            iSelect.setAttribute("id", colID);
+            iSelect.setAttribute("class", "form-control");
+            iSelect.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
+            for (var i = 0; i < arrayPalo.length; i++) {
+                option = document.createElement("option");
+                option.value = arrayPalo[i];
+                option.text = arrayPalo[i];
+                iSelect.appendChild(option);
+            }
+
+            iCol = document.createElement('div');
+            iCol.className = "col-md-2";
+            console.log('colID: ', colID);
+            iCol.setAttribute("id", colID);
+            iCol.appendChild(iSelect);            
+            iRow.appendChild(iCol);
+
+            
+            var iInput = document.createElement('input');
+            colID = "Speed_" + element["no"];
+            iInput.setAttribute("id", colID);
+            iInput.setAttribute("type", "text");
+            iInput.setAttribute("class", "form-control");
+
+            iCol = document.createElement('div');
+            iCol.className = "col-md-2";
+            console.log('colID: ', colID);
+            iCol.setAttribute("id", colID);
+            iCol.appendChild(iInput);            
+            iRow.appendChild(iCol);
+
+
+            iSelect = document.createElement('select');
+            // iSelect.setAttribute("id", rowID);
+            colID = "soundSelect_" + element["no"];
+            iSelect.setAttribute("id", colID);
+            iSelect.setAttribute("class", "form-control");
+            iSelect.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
+
+            iCol = document.createElement('div');
+            iCol.className = "col-md-2";
+            console.log('colID: ', colID);
+            iCol.setAttribute("id", colID);
+            iCol.appendChild(iSelect);            
+            iRow.appendChild(iCol);
+
+
+            myParent.appendChild(iRow);
+        }
+
     }
 
     //https://stackoverflow.com/questions/17001961/how-to-add-drop-down-list-select-programmatically

@@ -27,6 +27,38 @@
     </table>
 </div>
 
+<div id="customarea" class="row" style="width:800px; margin:0 auto;">
+    <div class="col-md-2">
+      <input type="text" class="form-control" placeholder="palo">
+    </div>
+    <div class="col-md-3">
+        <input id="Speed" class='form-control' type="number" value='140'
+            min='10' max='600'
+            onchange="metronomeApp.setTempo(this.value);" >
+    </div>
+    <div class="col-md-4">
+        <select id="metroSound" class="form-control"
+            onChange="metronomeApp.setSound(this.selectedIndex + 1)">
+        </select>
+    </div>
+</div>
+<div id="customarea" class="row" style="width:800px; margin:0 auto;">
+    <div class="col-md-2">
+      <input type="text" class="form-control" placeholder="palo">
+    </div>
+    <div class="col-md-3">
+        <input id="Speed" class='form-control' type="number" value='140'
+            min='10' max='600'
+            onchange="metronomeApp.setTempo(this.value);" >
+    </div>
+    <div class="col-md-4">
+        <select id="metroSound" class="form-control"
+            onChange="metronomeApp.setSound(this.selectedIndex + 1)">
+        </select>
+    </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.js"></script> -->
