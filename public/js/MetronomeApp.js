@@ -75,6 +75,8 @@ class MetronomeApp {
                 // console.log('json: ', json)
                 // console.log('this.datas: ', this.datas)
                 this.tableCreate();
+
+                this.addHeader();
                 this.rowsCreate2(this.datas);
 //                this.rowsCreate(this.datas);
             });
@@ -116,22 +118,85 @@ class MetronomeApp {
         this.generateTable(table, this.datas);
     }
 
+    addHeader() {
+        var myParent = document.body;
+
+        var iContainer = document.createElement('div');
+        iContainer.className="container";
+        myParent.appendChild(iContainer);
+
+        var iRow, iNo, iCol, iBtn;
+        var colID = "", iSelect = "", option = "";
+        // adding row.
+        iRow = document.createElement('div');
+        iRow.className = "row";
+
+        iNo = document.createElement('button');
+        console.log('colID: ', colID);
+        iNo.setAttribute("id", colID);
+        iNo.className = "btn-info";
+        iNo.textContent = colID;
+        iNo.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
+        iNo.setAttribute('style', 'height:40px; width:180px');
+
+        iCol = document.createElement('div');
+        iCol.className = "col-md-6";
+        iCol.appendChild(iNo);            
+        iRow.appendChild(iCol);
+
+
+        iBtn = document.createElement('button');
+        colID = "add_0" ;
+        iBtn.setAttribute("id", colID);
+        iBtn.className = "btn-info";
+        iBtn.textContent = "+ compas"
+        iBtn.setAttribute("onClick", "metronomeApp.addCompas(this)");
+
+        iCol = document.createElement('div');
+        iCol.className = "col-md-6";
+        console.log('colID: ', colID);
+        iCol.appendChild(iBtn);            
+        iRow.appendChild(iCol);
+
+        iContainer.appendChild(iRow);
+
+    }
+
     rowsCreate2(data) {
         var myParent = document.body;
         var arrayPalo = ["Alegrias","Tangos","Soleares","Bulerias"];
         var arraySpeedType = ["Constant", "Inc. by Beat", "Inc. by Compas", "Dec. by Beat", "Dec. by Compas"];
+
+        var iContainer = document.createElement('div');
+        iContainer.className="container";
+        myParent.appendChild(iContainer);
+
         for (let element of data) {
-            console.log('element: ', element);
-            var iRow, iCol;
-            var colID = "";
-            var iSelect = "", option = "";
+//            console.log('element: ', element);
+            var iRow, iNo, iCol, iBtn;
+            var colID = "", iSelect = "", option = "";
+            // adding row.
             iRow = document.createElement('div');
             iRow.className = "row";
+
+            iNo = document.createElement('button');
+            colID = "no_" + element["no"];
+            console.log('colID: ', colID);
+            iNo.setAttribute("id", colID);
+            iNo.className = "btn-info";
+            iNo.textContent = colID;
+            iNo.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
+
+            iCol = document.createElement('div');
+            iCol.className = "col-md-2";
+            iCol.appendChild(iNo);            
+            iRow.appendChild(iCol);
+
 
             iSelect = document.createElement('select');
             colID = "Palo_" + element["no"];
             iSelect.setAttribute("id", colID);
-            iSelect.setAttribute("class", "form-control");
+            iSelect.setAttribute("class", "form-control-sm");
             iSelect.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
             for (var i = 0; i < arrayPalo.length; i++) {
                 option = document.createElement("option");
@@ -166,7 +231,7 @@ class MetronomeApp {
             // iSelect.setAttribute("id", rowID);
             colID = "soundSelect_" + element["no"];
             iSelect.setAttribute("id", colID);
-            iSelect.setAttribute("class", "form-control");
+            iSelect.setAttribute("class", "form-control-sm");
             iSelect.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
 
             iCol = document.createElement('div');
@@ -177,7 +242,22 @@ class MetronomeApp {
             iRow.appendChild(iCol);
 
 
-            myParent.appendChild(iRow);
+            iBtn = document.createElement('button');
+            colID = "add_" + element["no"];
+            iBtn.setAttribute("id", colID);
+            iBtn.className = "btn-info";
+            iBtn.textContent = "+ compas"
+            iBtn.setAttribute("onClick", "metronomeApp.addCompas(this)");
+
+            iCol = document.createElement('div');
+            iCol.className = "col-md-2";
+            console.log('colID: ', colID);
+//            iBtn.setAttribute("class", "form-control");
+            iCol.appendChild(iBtn);            
+            iRow.appendChild(iCol);
+            
+
+            iContainer.appendChild(iRow);
         }
 
     }
@@ -269,14 +349,8 @@ class MetronomeApp {
         this.metroWorker.setPalo(type);
     }
 
-    addCompas() {
-        // Append a text node to the cell
-        var newText  = document.createTextNode('New row');
-        // Insert a row in the table at the last row
-        var newRow   = document.add();
-//        newCell.appendChild(newText);
-        console.log('addCompas, document: ', document);
-//        this.metroWorker.addCompas();
+    addCompas(element) {
+        console.log('addCompas, compasNo: ', element);
     }
 
     /**
