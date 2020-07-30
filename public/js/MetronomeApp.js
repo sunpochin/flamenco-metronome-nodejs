@@ -78,7 +78,6 @@ class MetronomeApp {
 
                 this.addHeader();
                 this.rowsCreate2(this.datas);
-//                this.rowsCreate(this.datas);
             });
         }
         await getJson();
@@ -119,12 +118,13 @@ class MetronomeApp {
     }
 
     addHeader() {
+        // adding compas sheet
         var myParent = document.body;
-
-        var iContainer = document.createElement('div');
-        iContainer.className="container";
-        myParent.appendChild(iContainer);
-
+        var iCompasSheet = document.createElement('div');
+        iCompasSheet.className="container";
+        iCompasSheet.id="compassheet"
+        myParent.appendChild(iCompasSheet);
+        
         var iRow, iNo, iCol, iBtn;
         var colID = "", iSelect = "", option = "";
         // adding row.
@@ -158,18 +158,27 @@ class MetronomeApp {
         iCol.appendChild(iBtn);            
         iRow.appendChild(iCol);
 
-        iContainer.appendChild(iRow);
+        iCompasSheet.appendChild(iRow);
 
     }
 
+    //https://stackoverflow.com/questions/17001961/how-to-add-drop-down-list-select-programmatically
+    //https://stackoverflow.com/questions/14643617/create-table-using-javascript
     rowsCreate2(data) {
-        var myParent = document.body;
-        var arrayPalo = ["Alegrias","Tangos","Soleares","Bulerias"];
-        var arraySpeedType = ["Constant", "Inc. by Beat", "Inc. by Compas", "Dec. by Beat", "Dec. by Compas"];
+        // clear first.
+        var iCompasSheet = document.getElementById('compassheet');
+        console.log("compassheet: ", iCompasSheet)
+        // parent = document.getElementById('Palo_2');
+        // console.log("Palo_2: ", parent)
+        while (iCompasSheet && iCompasSheet.firstChild) {
+            console.log("parent.firstChild.remove(): " );
+            iCompasSheet.firstChild.remove();
+        }
 
-        var iContainer = document.createElement('div');
-        iContainer.className="container";
-        myParent.appendChild(iContainer);
+        // var iCompasSheet = document.createElement('div');
+
+        var arrayPalo = ["Alegrias", "Tangos", "Soleares", "Bulerias"];
+        var arraySpeedType = ["Constant", "Inc. by Beat", "Inc. by Compas", "Dec. by Beat", "Dec. by Compas"];
 
         for (let element of data) {
 //            console.log('element: ', element);
@@ -256,82 +265,9 @@ class MetronomeApp {
             iCol.appendChild(iBtn);            
             iRow.appendChild(iCol);
             
-
-            iContainer.appendChild(iRow);
-        }
-
-    }
-
-    //https://stackoverflow.com/questions/17001961/how-to-add-drop-down-list-select-programmatically
-    //https://stackoverflow.com/questions/14643617/create-table-using-javascript
-    rowsCreate(data) {
-        var myParent = document.body;
-        var arrayPalo = ["Alegrias","Tangos","Soleares","Bulerias"];
-        var arraySpeedType = ["Constant", "Inc. by Beat", "Inc. by Compas", "Dec. by Beat", "Dec. by Compas"];
-
-        console.log('document: ', document);
-        for (let lala of data) {
-//            element.classList.add("otherclass");
-            var tr = document.createElement('tr');
-
-            let keys = Object.keys(this.datas[0]);
-            // how many colomns.
-//            for (let key of keys) 
-            {
-                // console.log('key: ', key);
-                var td;
-                var selectList1, selectList2, selectList3, selectList4 ;
-                var option;
-
-                td = document.createElement('td');
-                selectList1 = document.createElement("select");
-                selectList1.id = "selectPalo";
-                for (var i = 0; i < arrayPalo.length; i++) {
-                    option = document.createElement("option");
-                    option.value = arrayPalo[i];
-                    option.text = arrayPalo[i];
-                    selectList1.appendChild(option);
-                }
-                td.appendChild(selectList1);
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                selectList2 = document.createElement("select");
-                selectList2.id = "selectSpeed";
-                option = document.createElement("option");
-                option.value = arrayPalo[i];
-                option.text = arrayPalo[i];
-                selectList2.appendChild(option);
-                td.appendChild(selectList2);
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                selectList3 = document.createElement("select");
-                selectList3.id = "mySelect";
-                option = document.createElement("option");
-                option.value = arrayPalo[i];
-                option.text = arrayPalo[i];
-                selectList3.appendChild(option);
-                td.appendChild(selectList3);
-                tr.appendChild(td);
-
-                td = document.createElement('td');
-                selectList4 = document.createElement("select");
-                selectList4.id = "selectIncDec";
-                for (var i = 0; i < arraySpeedType.length; i++) {
-                    option = document.createElement("option");
-                    option.value = arraySpeedType[i];
-                    option.text = arraySpeedType[i];
-                    selectList4.appendChild(option);
-                }
-                td.appendChild(selectList4);
-                tr.appendChild(td);
-            }
-            myParent.appendChild(tr);
-
+            iCompasSheet.appendChild(iRow);
         }
     }
-
 
     /**
      * Sets the tempo.
@@ -351,6 +287,15 @@ class MetronomeApp {
 
     addCompas(element) {
         console.log('addCompas, compasNo: ', element);
+        let ajson = {
+            "no": "100", 
+            "CompasPattern": "Alegrias", 
+            "Speed": 300, 
+            "Speed Type": "Constant"
+        };
+    
+        this.datas.push(ajson);
+        this.rowsCreate2(this.datas);
     }
 
     /**
