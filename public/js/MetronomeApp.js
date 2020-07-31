@@ -68,7 +68,7 @@ class MetronomeApp {
 
     async loadJson() {
         const getJson = async () => {
-            return fetch("res/compassheet.json")
+            return fetch("res/compas-table.json")
             .then(response => response.json())
             .then(json => {
                 this.datas = json;
