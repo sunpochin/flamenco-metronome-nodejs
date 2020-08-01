@@ -187,19 +187,25 @@ class MetronomeApp {
     //https://stackoverflow.com/questions/14643617/create-table-using-javascript
     rowsCreate2(data) {
         // clear first.
-        var myParent = document.body;
-        var iCompasSheet = document.createElement('div');
-        iCompasSheet.className="container";
-        iCompasSheet.id="compassheet"
-        myParent.appendChild(iCompasSheet);
-
-        console.log("compassheet: ", iCompasSheet)
         // parent = document.getElementById('Palo_2');
         // console.log("Palo_2: ", parent)
+        var iCompasSheet = document.getElementById('compassheet');
         while (iCompasSheet && iCompasSheet.firstChild) {
             console.log("parent.firstChild.remove(): " );
             iCompasSheet.firstChild.remove();
         }
+
+        if (null === iCompasSheet) {
+            console.log("iCompasSheet: ", iCompasSheet)
+
+            iCompasSheet = document.createElement('div');
+            iCompasSheet.className="container";
+            iCompasSheet.id="compassheet"
+            var myParent = document.body;
+            myParent.appendChild(iCompasSheet);
+        }
+
+        console.log("compassheet: ", iCompasSheet)
 
         // var iCompasSheet = document.createElement('div');
 
@@ -216,7 +222,7 @@ class MetronomeApp {
 
             iNo = document.createElement('button');
             colID = "no_" + element["no"];
-            console.log('colID: ', colID);
+            // console.log('colID: ', colID);
             iNo.setAttribute("id", colID);
             iNo.className = "btn-info";
             iNo.textContent = colID;
@@ -242,7 +248,7 @@ class MetronomeApp {
 
             iCol = document.createElement('div');
             iCol.className = "col-md-2";
-            console.log('colID: ', colID);
+            // console.log('colID: ', colID);
             iCol.setAttribute("id", colID);
             iCol.appendChild(iSelect);            
             iRow.appendChild(iCol);
@@ -256,7 +262,7 @@ class MetronomeApp {
 
             iCol = document.createElement('div');
             iCol.className = "col-md-2";
-            console.log('colID: ', colID);
+            // console.log('colID: ', colID);
             iCol.setAttribute("id", colID);
             iCol.appendChild(iInput);            
             iRow.appendChild(iCol);
@@ -271,7 +277,7 @@ class MetronomeApp {
 
             iCol = document.createElement('div');
             iCol.className = "col-md-2";
-            console.log('colID: ', colID);
+            // console.log('colID: ', colID);
             iCol.setAttribute("id", colID);
             iCol.appendChild(iSelect);            
             iRow.appendChild(iCol);
@@ -286,7 +292,7 @@ class MetronomeApp {
 
             iCol = document.createElement('div');
             iCol.className = "col-md-2";
-            console.log('colID: ', colID);
+            // console.log('colID: ', colID);
 //            iBtn.setAttribute("class", "form-control");
             iCol.appendChild(iBtn);            
             iRow.appendChild(iCol);
@@ -312,13 +318,21 @@ class MetronomeApp {
     }
 
     addCompas(element) {
-        console.log('addCompas, compasNo: ', element);
+        const toStr = (element.id).toString();
+        // let num = ('abc').toString();
+        // alert(num.replace('a', 'b') );
+
+        const compasIdx = toStr.replace('add_', '');
+        console.log('addCompas, compasNo: ', element.id, 
+            ', toStr: ', toStr, ', compasIdx: ', compasIdx);
+
         let ajson = {
-            "no": "100", 
+//            "no": "100", 
             "CompasPattern": "Alegrias", 
             "Speed": 300, 
             "Speed Type": "Constant"
         };
+        ajson['no'] = compasIdx;
     
         this.datas.push(ajson);
         this.rowsCreate2(this.datas);
