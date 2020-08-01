@@ -117,46 +117,67 @@ class MetronomeApp {
         this.generateTable(table, this.datas);
     }
 
+    AddToRow(iEle, iRow) {
+        iEle.className = "badge badge-info";
+        var iCol = document.createElement('div');
+        iCol.className = "col-md-2";
+        iCol.appendChild(iEle);
+        iRow.appendChild(iCol);
+    }
+
     addHeader() {
         // adding compas sheet
         var myParent = document.body;
         var iCompasSheet = document.createElement('div');
         iCompasSheet.className="container";
-        iCompasSheet.id="compassheet"
+        iCompasSheet.id="compassheet-header"
         myParent.appendChild(iCompasSheet);
         
-        var iRow, iNo, iCol, iBtn;
+        var iEle, iRow, iNo, iCol, iBtn;
         var colID = "", iSelect = "", option = "";
         // adding row.
         iRow = document.createElement('div');
         iRow.className = "row";
 
-        iNo = document.createElement('button');
-        console.log('colID: ', colID);
-        iNo.setAttribute("id", colID);
-        iNo.className = "btn-info";
-        iNo.textContent = colID;
-        iNo.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
-        iNo.setAttribute('style', 'height:40px; width:180px');
+        // compas no.
+        iEle = document.createElement('span');
+        colID = "no_0" ;
+        iEle.setAttribute("id", colID);
+        iEle.textContent = "Compas No. ";
+        iEle.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
+//        iEle.setAttribute('style', 'height:40px; width:180px');
+        this.AddToRow(iEle, iRow);
 
-        iCol = document.createElement('div');
-        iCol.className = "col-md-6";
-        iCol.appendChild(iNo);            
-        iRow.appendChild(iCol);
-
-
-        iBtn = document.createElement('button');
+        // compas pattern
+        iEle = document.createElement('span');
         colID = "add_0" ;
-        iBtn.setAttribute("id", colID);
-        iBtn.className = "btn-info";
-        iBtn.textContent = "+ compas"
-        iBtn.setAttribute("onClick", "metronomeApp.addCompas(this)");
+        iEle.setAttribute("id", colID);
+        iEle.textContent = "Compas Pattern"
+        this.AddToRow(iEle, iRow);
 
-        iCol = document.createElement('div');
-        iCol.className = "col-md-6";
-        console.log('colID: ', colID);
-        iCol.appendChild(iBtn);            
-        iRow.appendChild(iCol);
+        // Speed
+        iEle = document.createElement('span');
+        colID = "speed_0" ;
+        iEle.setAttribute("id", colID);
+        iEle.textContent = "Speed"
+//        iEle.setAttribute("onClick", "metronomeApp.addCompas(this)");
+        this.AddToRow(iEle, iRow);
+
+        // Speed type
+        iEle = document.createElement('span');
+        colID = "speedtype_0" ;
+        iEle.setAttribute("id", colID);
+        iEle.textContent = "Speed type"
+        this.AddToRow(iEle, iRow);
+
+        // add compas
+        iEle = document.createElement('span');
+        colID = "add_0" ;
+        iEle.setAttribute("id", colID);
+        iEle.className = "badge badge-info";
+        iEle.textContent = "+"
+        iEle.setAttribute("onClick", "metronomeApp.addCompas(this)");
+        this.AddToRow(iEle, iRow);
 
         iCompasSheet.appendChild(iRow);
 
@@ -166,7 +187,12 @@ class MetronomeApp {
     //https://stackoverflow.com/questions/14643617/create-table-using-javascript
     rowsCreate2(data) {
         // clear first.
-        var iCompasSheet = document.getElementById('compassheet');
+        var myParent = document.body;
+        var iCompasSheet = document.createElement('div');
+        iCompasSheet.className="container";
+        iCompasSheet.id="compassheet"
+        myParent.appendChild(iCompasSheet);
+
         console.log("compassheet: ", iCompasSheet)
         // parent = document.getElementById('Palo_2');
         // console.log("Palo_2: ", parent)
