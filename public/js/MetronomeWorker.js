@@ -1,3 +1,5 @@
+'use strict';
+
 let endtime = new Date().getTime();
 // let beatAlegriasTraditional = [1.5, 0.5, 1, 1.5, 0.5, 1,
 //     1.0, 0.5, 0.5, 1.0, 0.5, 0.5, 1.0, 1.0 ];

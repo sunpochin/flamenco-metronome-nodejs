@@ -1,8 +1,5 @@
 
-//   let mountains = [
-//     { no: "1", CompasPattern: "Monte Falco", height: 1658, place: "Parco Foreste Casentinesi" },
-//     { no: "5", CompasPattern: "Amiata", height: 1738, place: "Siena" }
-//   ];
+'use strict';
 
 class MetronomeApp {
     /**
@@ -361,9 +358,9 @@ class MetronomeApp {
     }
 }
 
-const metronomeApp = new MetronomeApp('res/audio/',
-    [ 'Low_Bongo.wav', 'Clap_bright.wav',],
-    VisSettings);
+// const metronomeApp = new MetronomeApp('res/audio/',
+//     [ 'Low_Bongo.wav', 'Clap_bright.wav',],
+//     VisSettings);
 
 // const metronomeApp = new MetronomeApp('res/audio/',
 //     ['Clap_bright.wav', 'High_Woodblock.wav', 'Low_Woodblock.wav', 'High_Bongo.wav',
