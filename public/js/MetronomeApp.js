@@ -1,7 +1,7 @@
+import MetronomeWorker from './MetronomeWorker.js';
 
-'use strict';
-
-class MetronomeApp {
+let self = null;
+export default class MetronomeApp {
     /**
      * Creates a MetronomeApp.
      * @param soundsPath the path used to fetch the sound files
@@ -13,7 +13,8 @@ class MetronomeApp {
      */
     constructor(soundsPath, sounds, visSettings, soundSelectId, 
         visTypeSelectId, startStopId) {
-        console.log('constructor: ' );
+        // console.log('constructor: ' );
+        self = this;
 
         this.visSettings = visSettings;
         this.soundSelectId = soundSelectId || 'soundSelect';
@@ -25,21 +26,25 @@ class MetronomeApp {
             setTempo: (t) => visSettings.tempoBpm = t,
             setStartTime: (t) => visSettings.startTime = t
         };
-        this.metroWorker = new MetronomeWorker(soundsPath, sounds, metroSoundListener);
+        self.metroWorker = new MetronomeWorker(soundsPath, sounds, metroSoundListener);
+        //gmetroWorker = new MetronomeWorker(soundsPath, sounds, metroSoundListener);
 
         visSettings.getTime = () => this.metroWorker.audioContext.currentTime;
-
-
 
         this.datas = [];
         this.loadJson();
 
-        const visTypeSelect = $('#' + this.visTypeSelectId);
-        visTypeSelect.append('<option>None</option>');
-        visSettings.names.map((visTypeName, index) => {
-            const sel = index === 0 ? ' selected' : '';
-            visTypeSelect.append(`<option${sel}>${visTypeName}</option>`);
-        });
+        // const visTypeSelect = $('#' + this.visTypeSelectId);
+        // visTypeSelect.append('<option>None</option>');
+        // visSettings.names.map((visTypeName, index) => {
+        //     const sel = index === 0 ? ' selected' : '';
+        //     visTypeSelect.append(`<option${sel}>${visTypeName}</option>`);
+        // });
+
+    }
+
+    setAudioContext(audio) {
+        self.metroWorker.setAudioContext(audio);
     }
 
     SetupSelection() {
@@ -157,7 +162,6 @@ class MetronomeApp {
         colID = "speed_0" ;
         iEle.setAttribute("id", colID);
         iEle.textContent = "Speed"
-//        iEle.setAttribute("onClick", "metronomeApp.addCompas(this)");
         this.AddToRow(iEle, iRow);
 
         // Speed type
@@ -173,13 +177,27 @@ class MetronomeApp {
         iEle.setAttribute("id", colID);
         iEle.className = "badge badge-info";
         iEle.textContent = "+"
-        iEle.setAttribute("onClick", "metronomeApp.addCompas(this)");
+//        iEle.setAttribute("onClick", "metronomeApp.addCompas(this)");
+//        iEle.addEventListener("click", metroWorker.addCompas, false);
+        iEle.addEventListener("click", function() {
+//            console.log('event: this', this, ', gmetroWorker: ', gmetroWorker);
+            self.addCompas(this);
+        });
+        // iEle.addEventListener("click", run = () => {
+        //     console.log('event: this', this, ', gmetroWorker: ', gmetroWorker);
+        //     gmetroWorker.addCompas(this);
+        // });
+
         this.AddToRow(iEle, iRow);
 
         iCompasSheet.appendChild(iRow);
 
     }
-
+    
+    onclick(e) {
+        console.log('onclick! ', e);
+        alert(this.constructor.name); // SomeClass
+    }
     //https://stackoverflow.com/questions/17001961/how-to-add-drop-down-list-select-programmatically
     //https://stackoverflow.com/questions/14643617/create-table-using-javascript
     rowsCreate2(data) {

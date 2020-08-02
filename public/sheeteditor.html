@@ -5,7 +5,7 @@
     <title>Flamenco Metronome Editor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
         crossorigin="anonymous">
@@ -31,15 +31,18 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 
-<script src="js/MetronomeWorker.js"></script>
+<script type="module" src="js/MetronomeWorker.js"></script>
 <script src="js/visualization.js"></script>
-<script src="js/MetronomeApp.js"></script>
-<script type="text/javascript">
+<script type="module">
     console.log('in html script tag');
+    import MetronomeApp from './js/MetronomeApp.js';
     const metronomeApp = new MetronomeApp('res/audio/',
         [ 'Low_Bongo.wav', 'Clap_bright.wav',],
         VisSettings);
+    metronomeApp.setAudioContext(new (window.AudioContext || window.webkitAudioContext)() );
+
 </script>
+<script type="module" src="js/MetronomeApp.js"></script>
 
 </body>
 </html>

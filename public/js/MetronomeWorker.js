@@ -1,4 +1,3 @@
-'use strict';
 
 let endtime = new Date().getTime();
 // let beatAlegriasTraditional = [1.5, 0.5, 1, 1.5, 0.5, 1,
@@ -20,7 +19,7 @@ var compasTempoMap = new Map([
 
 ] );
 
-class MetronomeWorker {
+export default class MetronomeWorker {
     constructor(soundsPath, sounds, listener) {
         this.soundsPath = soundsPath;
         const dummyListener = { setTempo: (t) => {}, setStartTime: (t) => {} };
@@ -28,9 +27,10 @@ class MetronomeWorker {
         this.running = false;
         this.tempoBpm = 140;
         this.soundNum = 1;
-        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const urls = sounds.map(name => this.soundsPath + name);
-        this.soundFiles = new SoundFiles(this.audioContext, urls);
+        this.sounds = sounds;
+        // this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        // const urls = sounds.map(name => this.soundsPath + name);
+        // this.soundFiles = new SoundFiles(this.audioContext, urls);
 
         this.compasNo = 0;
 
@@ -43,6 +43,13 @@ class MetronomeWorker {
     setTempo(bpm) {
         console.log('in setTempo');
         this.tempoBpm = bpm;
+    }
+
+
+    setAudioContext(audioContext) {
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const urls = this.sounds.map(name => this.soundsPath + name);
+        this.soundFiles = new SoundFiles(this.audioContext, urls);
     }
 
     /**

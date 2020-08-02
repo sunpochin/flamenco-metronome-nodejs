@@ -1,7 +1,8 @@
 //jest.mock('../../appConfig.js', () => mockValues);
-const { VisSettings } = require('../__mocks__/visualization');
-const MetronomeApp = require('../public/js/MetronomeApp');
-
+//const { VisSettings } = require('../__mocks__/visualization');
+// const MetronomeApp = require('../public/js/MetronomeApp');
+import MetronomeApp from '../public/js/MetronomeApp';
+import VisSettings from '../__mocks__/visualization';
 
 describe("Testing util function", () => {
     test("testing addcompas", () => {
