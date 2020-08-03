@@ -1,9 +1,9 @@
 import MetronomeWorker from './MetronomeWorker.js';
 
 let self = null;
-export default class MetronomeApp {
+export default class MetronomeEditor {
     /**
-     * Creates a MetronomeApp.
+     * Creates a MetronomeEditor.
      * @param soundsPath the path used to fetch the sound files
      * @param sounds an array of sound file names
      * @param visSettings settings for the visualizer
@@ -33,14 +33,6 @@ export default class MetronomeApp {
 
         this.datas = [];
         this.loadJson();
-
-        // const visTypeSelect = $('#' + this.visTypeSelectId);
-        // visTypeSelect.append('<option>None</option>');
-        // visSettings.names.map((visTypeName, index) => {
-        //     const sel = index === 0 ? ' selected' : '';
-        //     visTypeSelect.append(`<option${sel}>${visTypeName}</option>`);
-        // });
-
     }
 
     setAudioContext(audio) {
@@ -146,7 +138,10 @@ export default class MetronomeApp {
         colID = "no_0" ;
         iEle.setAttribute("id", colID);
         iEle.textContent = "Compas No. ";
-        iEle.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
+        iEle.addEventListener("change", function() {
+            self.setSound(this.selectedIndex + 1);
+        });
+    
 //        iEle.setAttribute('style', 'height:40px; width:180px');
         this.AddToRow(iEle, iRow);
 
@@ -177,16 +172,10 @@ export default class MetronomeApp {
         iEle.setAttribute("id", colID);
         iEle.className = "badge badge-info";
         iEle.textContent = "+"
-//        iEle.setAttribute("onClick", "metronomeApp.addCompas(this)");
-//        iEle.addEventListener("click", metroWorker.addCompas, false);
         iEle.addEventListener("click", function() {
 //            console.log('event: this', this, ', gmetroWorker: ', gmetroWorker);
             self.addCompas(this);
         });
-        // iEle.addEventListener("click", run = () => {
-        //     console.log('event: this', this, ', gmetroWorker: ', gmetroWorker);
-        //     gmetroWorker.addCompas(this);
-        // });
 
         this.AddToRow(iEle, iRow);
 
@@ -241,8 +230,10 @@ export default class MetronomeApp {
             iNo.setAttribute("id", colID);
             iNo.className = "btn-info";
             iNo.textContent = colID;
-            iNo.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
-
+            iNo.addEventListener("change", function() {
+                self.setSound(this.selectedIndex + 1);
+            });
+                
             iCol = document.createElement('div');
             iCol.className = "col-md-2";
             iCol.appendChild(iNo);            
@@ -253,7 +244,9 @@ export default class MetronomeApp {
             colID = "Palo_" + element["no"];
             iSelect.setAttribute("id", colID);
             iSelect.setAttribute("class", "form-control-sm");
-            iSelect.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
+            iSelect.addEventListener("change", function() {
+                self.setSound(this.selectedIndex + 1);
+            });
             for (var i = 0; i < arrayPalo.length; i++) {
                 option = document.createElement("option");
                 option.value = arrayPalo[i];
@@ -288,7 +281,9 @@ export default class MetronomeApp {
             colID = "soundSelect_" + element["no"];
             iSelect.setAttribute("id", colID);
             iSelect.setAttribute("class", "form-control-sm");
-            iSelect.setAttribute("onChange", "metronomeApp.setSound(this.selectedIndex + 1)");
+            iSelect.addEventListener("change", function() {
+                self.setSound(this.selectedIndex + 1);
+            });
 
             iCol = document.createElement('div');
             iCol.className = "col-md-2";
@@ -303,7 +298,9 @@ export default class MetronomeApp {
             iBtn.setAttribute("id", colID);
             iBtn.className = "btn-info";
             iBtn.textContent = "+ compas"
-            iBtn.setAttribute("onClick", "metronomeApp.addCompas(this)");
+            iBtn.addEventListener("click", function() {
+                self.addCompas(this);
+            });
 
             iCol = document.createElement('div');
             iCol.className = "col-md-2";
@@ -376,11 +373,11 @@ export default class MetronomeApp {
     }
 }
 
-// const metronomeApp = new MetronomeApp('res/audio/',
+// const metronomeApp = new MetronomeEditor('res/audio/',
 //     [ 'Low_Bongo.wav', 'Clap_bright.wav',],
 //     VisSettings);
 
-// const metronomeApp = new MetronomeApp('res/audio/',
+// const metronomeApp = new MetronomeEditor('res/audio/',
 //     ['Clap_bright.wav', 'High_Woodblock.wav', 'Low_Woodblock.wav', 'High_Bongo.wav',
 //         'Low_Bongo.wav', 'Claves.wav', 'Drumsticks.wav'],
 //     VisSettings);

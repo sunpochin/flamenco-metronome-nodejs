@@ -35,14 +35,14 @@
 <script src="js/visualization.js"></script>
 <script type="module">
     console.log('in html script tag');
-    import MetronomeApp from './js/MetronomeApp.js';
-    const metronomeApp = new MetronomeApp('res/audio/',
+    import MetronomeEditor from './js/MetronomeEditor.js';
+    const metronomeApp = new MetronomeEditor('res/audio/',
         [ 'Low_Bongo.wav', 'Clap_bright.wav',],
         VisSettings);
     metronomeApp.setAudioContext(new (window.AudioContext || window.webkitAudioContext)() );
 
 </script>
-<script type="module" src="js/MetronomeApp.js"></script>
+<script type="module" src="js/MetronomeEditor.js"></script>
 
 </body>
 </html>
