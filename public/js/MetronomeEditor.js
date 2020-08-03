@@ -27,7 +27,6 @@ export default class MetronomeEditor {
             setStartTime: (t) => visSettings.startTime = t
         };
         self.metroWorker = new MetronomeWorker(soundsPath, sounds, metroSoundListener);
-        //gmetroWorker = new MetronomeWorker(soundsPath, sounds, metroSoundListener);
 
         visSettings.getTime = () => this.metroWorker.audioContext.currentTime;
 
